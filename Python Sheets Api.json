@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "clovercashcount",
+  "private_key_id": "c2abfa2d0ec4bc4322a63df056c6810530fbc306",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDgCu0P7bSYrE4T\nGcMV0lD5TyOh7qZSwisRD/c6RoJGiKQbJ7qWX9oU85COU3uXSDNece9ZYMvftoLv\nwUSAXNteL63XK7mGezlz2hyJAo0/QPHLpZjqj/3fZWzshqYF9nleknAacU9d2f73\nWdMkq2YUzYxWdQQ0WXrChKPznkmEM1UeIQvecLaMN3xMbtJR2lKnyJUFIJSeBqFG\nJKCNPr5AMaC62b52fEll5Xf0ae/u7zlxyjcmkvjXnE3ifezY+jRdcbnm1xu9hoMR\ndv+zWVnc5+nvbBns5N1CEhu2l60eTBHVMJHZOK+bjXLOlIspoWTGUrRHSjGhdByc\ndMmpYzVBAgMBAAECggEARIgzEc9FkfoK+97ChRdLe6eQn8UPjXslj1eR6XqN+SNt\nB310nvD9FbGXg2HYCWOlivtRGsb4NhtvHAXDfXxqAfqVs58FZjSlU2HhnqtwJ2wn\nSoMCLqYTI1W0JvndKS/G2n3y2rPUckHvsxv/8VSYqj5h8kRjH9xLJ9tJB4lgtZYn\nqsHUX6O/xHA8xEEZZWRAUagONgxwIFC6Zyg/yCc91tbFYXLQrLuebqkVPcSeHN2Z\nU91Tj+r8tfpAcShCLrheBCrKrwAB73L8PHXh27LGgUtPCos/0ylbGhf3xCixJY5v\nI7mnOeDvj1cI9vPYOcwQajSE77PtgOKPxGUS5SqcfQKBgQDxnFCHQaRbztgUQJkY\nOqHgkl3gEghpfvARnI4zymtjeZNS5WVn4FbH7zZ/t7Ol4YQzpsGkxZFX8lusRqmd\n8DPNUnhAJZYthD2IOaNljHpe/Ce/hWbq78qn5x52I9gfvMSmFUm9ukiC83Dl89l1\nwUo6IL7uhPj6U+x5skRdF3cAlwKBgQDtYsOrc+uCDl9nYDvDe6+/IE4KNqbyjbQi\nOZ/wc+tmjHtJMgwR1rHvaN9eg4/Ql0LR+rVRmz5HJgJy51RPbuDgyP6SnugDkcGv\nkjC3g/GBs93Tellva7n7sWqdIXJxcygsZUnZBIphFjTv34JbZ4uImt0yuPiqkTJ6\nTomrfBRb5wKBgQDtGDAOCuR3E2wHs7yIgkEIV5m3oPqQS/jZz3/cYu8vFsbzuhjg\n7s06NgyNGIA6cCuDZEjyoM4YN8SuMkmQq36qJhvLFxdgYzzeyXEG3evX+ionT4nH\nUrjUO4Ew/cvAmUWAlbNfc8ZkevB3N+xWGe/1St0Sw3pwbJrKcZ2UnMoy0QKBgQCt\nTW42LGGhyCZkTQA0fYbXjJkMocuNxl/coJ8gJzCS5DpZPH1NRKUQeEqiMH/8s4En\n1NUsp552yMv+4N1PRE5OLM6VcgdGG9IAAEUqpNvaadqnOmoyir3zfxmrbzCinISW\nrLeWBNeVe2XYPR9o5ZYbe5vDHQEFXQ0x90ZQeDxQvwKBgQDA3JZ6/CHF1kJBk42E\nBMQadR7iYn9+jdWRHgLsemLObg5Su+P7mFhgYWZVmDZHtjuzBPVhcJOYmyBnmboA\nc4CmyPCpgsalk2pNkjvpAObeMc7btnMgbqCXaQ+8fnGnVbNH4csVsYgAJ2NcjYr4\nHpRn225RON/zFEgJkXielyEkYg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "google-sheets@clovercashcount.iam.gserviceaccount.com",
+  "client_id": "110149078219988273369",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/google-sheets%40clovercashcount.iam.gserviceaccount.com"
+}
