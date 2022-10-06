@@ -9,24 +9,7 @@ import time
 
 import smtplib
 import time
-
-mid_dictionary = {
-"watchung_mid":"5VHZX7YQ845H1",
-"uc_mid":"RZVGWVQESBGH1",
-"newark_mid":"QZNR169QX96Q1",
-"rutherford_mid":"315ZB443CPFA1",
-"hoboken_mid":"E1ZBMYHNCNPW1",
-"elizabteh_mid":"9Y0C8GNEMNW61"
-}
-
-
-rutherford_api_token = "2724e5b5-302a-99d2-b78e-8cfd8bba4199"
-watchung_api_token = "ad01983e-b3f5-682b-6542-bdee520fa700"
-newark_api_token = "352e4275-2219-bdde-a02a-55c2d2f683a2"
-uc_api_token = "9703a12d-57ab-d459-e276-2d38a44ce20e"
-hoboken_api_token = "0e9fa16c-1b5e-aafe-f7a4-1352b965f78f"
-elizabeth_api_token = "bcd3517a-5046-f8b5-7526-9926f2c5ee25"
-
+from config import mid_dictionary,rutherford_api_token,newark_api_token,elizabeth_api_token,hoboken_api_token,watchung_api_token,uc_api_token
 
 
 def cash_request(time,time2,mid,token):
@@ -60,8 +43,6 @@ def cash_request(time,time2,mid,token):
             adjustment_total = data_list[interval]["amountChange"]
             adjustment_totals+= adjustment_total
 
-
-
     payment_totals = payment_totals / 100
     adjustment_totals = adjustment_totals / 100
 
@@ -79,16 +60,11 @@ def sales_request(time,time2,mid,token):
 
     data = response.json()
 
-
-
-
-
     intervals = len(data["elements"])
     data_list = data["elements"]
     payment_totals = 0
     discount_totals = 0
     tax_totals = 0
-
 
     for order in range(intervals):
 
@@ -103,8 +79,6 @@ def sales_request(time,time2,mid,token):
         except KeyError:
             line_items_interval =0
 
-
-
         for num_items in range(line_items_interval):
 
             line_item_price = 0
@@ -116,15 +90,10 @@ def sales_request(time,time2,mid,token):
                         line_item_price = data_list[order]["lineItems"]["elements"][num_items]["price"] / 100
                         line_item_price+= data_list[order]["lineItems"]["elements"][num_items]["modifications"]["elements"][number]["amount"]/100
 
-
-
                 else:
                     line_item_price = data_list[order]["lineItems"]["elements"][num_items]["price"]/100
             except KeyError :
                 pass
-
-
-
 
             try:
                 line_item_order = data_list[order]["lineItems"]["elements"][num_items]
@@ -132,29 +101,14 @@ def sales_request(time,time2,mid,token):
                 pass
 
             order_price += line_item_price
-
-
-
-
             if "discounts" in line_item_order:
                 for interval in range(len(line_item_order["discounts"]["elements"])):
                     try:
                         line_item_percent = line_item_order["discounts"]["elements"][interval]["percentage"]/100
                         discount_totals+= line_item_percent * -line_item_price
-
-
-
-
-
-
-
                     except KeyError:
                         line_item_amount = line_item_order["discounts"]["elements"][interval]["amount"]/100
                         discount_totals+=line_item_amount
-
-
-
-
             else:
                 pass
         if "discounts" in data_list[order]:
@@ -167,22 +121,11 @@ def sales_request(time,time2,mid,token):
                     discount_amount= data_list[order]["discounts"]["elements"][discount_interval]["amount"]/100
                     discount_totals+=discount_amount
 
-
-
-
-
                 except KeyError:
                     discount_percent = data_list[order]["discounts"]["elements"][discount_interval]["percentage"]/100
                     discount_totals +=discount_percent * -order_price
 
-
-
-
-
-
-
     return [payment_totals,discount_totals,tax_totals]
-
 
 def refund_request(time,time2,mid,token):
     header = {
@@ -196,7 +139,6 @@ def refund_request(time,time2,mid,token):
 
     data = response.json()
 
-
     intervals = len(data["elements"])
 
     data_list = data["elements"]
@@ -209,13 +151,11 @@ def refund_request(time,time2,mid,token):
         except KeyError:
             pass
 
-
     refund_totals = refund_totals / 100
 
     intervals = len(data["elements"])
 
     return(refund_totals)
-
 
 def date_to_timestamp(date):
     date = datetime.datetime.strptime(date, "%Y-%m-%d - %H:%M:%S")
@@ -223,16 +163,11 @@ def date_to_timestamp(date):
     # print(round(date*1000))
     return round(date*1000)
 
-
-
-
 today = datetime.date.today()
 yesterday = today - timedelta(days=1)
 
-
 watchung_amount_collected_without_tips = sales_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 23:00:00'),mid_dictionary["watchung_mid"],watchung_api_token)[0]
 watchung_discounts = sales_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 23:00:00'),mid_dictionary["watchung_mid"],watchung_api_token)[1]
-
 watchung_cash_sales = cash_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 23:00:00'),mid_dictionary["watchung_mid"],watchung_api_token)[0]
 watchung_adjustment = cash_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 23:00:00'),mid_dictionary["watchung_mid"],watchung_api_token)[1]
 watchung_refunds = refund_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 23:00:00'),mid_dictionary["watchung_mid"],watchung_api_token)
@@ -246,14 +181,12 @@ rutherford_refunds = refund_request(date_to_timestamp(f'{yesterday} - 00:00:00')
 newark_amount_collected_without_tips = sales_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 22:00:00'),mid_dictionary["newark_mid"],newark_api_token)[0]
 newark_discounts = sales_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 22:00:00'),mid_dictionary["newark_mid"],newark_api_token)[1]
 newark_tax = sales_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 22:00:00'),mid_dictionary["newark_mid"],newark_api_token)[2]
-
 newark_adjustment = cash_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 22:00:00'),mid_dictionary["newark_mid"],newark_api_token)[1]
 newark_cash_sales = cash_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 22:00:00'),mid_dictionary["newark_mid"],newark_api_token)[0]
 newark_refunds = refund_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 22:00:00'),mid_dictionary["newark_mid"],newark_api_token)
 
 hoboken_amount_collected_without_tips = sales_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 22:00:00'),mid_dictionary["hoboken_mid"],hoboken_api_token)[0]
 hoboken_discounts = sales_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 22:00:00'),mid_dictionary["hoboken_mid"],hoboken_api_token)[1]
-
 hoboken_cash_sales = cash_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 22:00:00'),mid_dictionary["hoboken_mid"],hoboken_api_token)[0]
 hoboken_adjustment = cash_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 22:00:00'),mid_dictionary["hoboken_mid"],hoboken_api_token)[1]
 hoboken_refunds = refund_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 22:00:00'),mid_dictionary["hoboken_mid"],hoboken_api_token)
@@ -269,10 +202,6 @@ elizabeth_amount_collected_without_tips = sales_request(date_to_timestamp(f'{yes
 elizabeth_cash_sales = cash_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 22:00:00'),mid_dictionary["elizabteh_mid"],elizabeth_api_token)[0]
 elizabeth_adjustment = cash_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 22:00:00'),mid_dictionary["elizabteh_mid"],elizabeth_api_token)[1]
 elizabeth_refunds = refund_request(date_to_timestamp(f'{yesterday} - 00:00:00'),date_to_timestamp(f'{yesterday} - 22:00:00'),mid_dictionary["elizabteh_mid"],elizabeth_api_token)
-
-
-
-
 
 ##### Google Sheets Update
 
